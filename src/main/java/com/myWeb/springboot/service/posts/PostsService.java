@@ -22,8 +22,9 @@ public class PostsService {
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts posts = postsRepository.findById(id)
+                // 값이 없으면 function 실행(오류 throw) / 인자로 왜 Exception 아니고 function??
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+ id));
-
+                // Optional이 대상
         posts.update(requestDto.getTitle(), requestDto.getContent());
 
         return id;
