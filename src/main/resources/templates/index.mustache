@@ -8,8 +8,7 @@
             </div>
         </div>
         <br>
-        <!-- 목록 출력 영역 (미완)-->
-        <!--
+        <!-- 목록 출력 영역 -->
         <table class="table table-horizontal table-bordered">
             <thead class="thead-strong">
             <tr>
@@ -20,10 +19,18 @@
             </tr>
             </thead>
             <tbody id="tbody">
-
+            {{#posts}} <!-- posts를 돌면서 -->
+                <tr>
+                    <td>{{id}}</td> <!-- 각 게시글의 데이터 불러옴 -->
+                    <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+                    <!-- update 흐름 : 이거 클릭 -> IndexController.postsUpdate()(안에서 repository 데이터 조회)
+                    -> posts-update.mustache -> 수정 완료 클릭시 index.js의 update 거쳐서 PostsApiController.update() 실행 -->
+                    <td>{{author}}</td>
+                    <td>{{modifiedDate}}</td>
+                </tr>
+            {{/posts}}
             </tbody>
         </table>
-        -->
     </div>
 
 {{>layout/footer}}

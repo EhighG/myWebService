@@ -5,13 +5,13 @@ var main = { // scope 만들기.
             _this.save(); // main.save()인듯? 호출
         });
 
-//        $('#btn-update').on('click', function () {
-//            _this.update();
-//        });
-//
-//        $('#btn-delete').on('click', function () {
-//            _this.delete();
-//        });
+        $('#btn-update').on('click', function () {
+            _this.update();
+        });
+
+        $('#btn-delete').on('click', function () {
+            _this.delete();
+        });
     },
     save : function () { // 버튼 눌려서 호출되면
         var data = { // 값을 저장하고
@@ -32,44 +32,44 @@ var main = { // scope 만들기.
         }).fail(function (error) { // 실패하면
             alert(JSON.stringify(error));
         });
-    }
-//    update : function () {
-//        var data = {
-//            title: $('#title').val(),
-//            content: $('#content').val()
-//        };
-//
-//        var id = $('#id').val();
-//
-//        $.ajax({
-//            type: 'PUT',
-//            url: '/api/v1/posts/'+id,
-//            dataType: 'json',
-//            contentType:'application/json; charset=utf-8',
-//            data: JSON.stringify(data)
-//        }).done(function() {
-//            alert('글이 수정되었습니다.');
-//            window.location.href = '/';
-//        }).fail(function (error) {
-//            alert(JSON.stringify(error));
-//        });
-//    },
-//    delete : function () {
-//        var id = $('#id').val();
-//
-//        $.ajax({
-//            type: 'DELETE',
-//            url: '/api/v1/posts/'+id,
-//            dataType: 'json',
-//            contentType:'application/json; charset=utf-8'
-//        }).done(function() {
-//            alert('글이 삭제되었습니다.');
-//            window.location.href = '/';
-//        }).fail(function (error) {
-//            alert(JSON.stringify(error));
-//        });
-//    }
+    },
+    update : function () {
+        var data = {
+            title: $('#title').val(), // posts-update.mustache에서 {{post.title}}
+            content: $('#content').val()
+        };
 
+        var id = $('#id').val(); // PostsApiController.update()에 인자로 들어갈 id
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/posts/'+id, // PostsApiController.update()
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data) // PostsUpdateResponseDto로 변환될 데이터.(postsService.update()에서 unpacking됨.)
+        }).done(function() {
+            alert('글이 수정되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    delete : function () {
+        var id = $('#id').val();
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/posts/'+id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function() {
+            alert('글이 삭제되었습니다.');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
 };
 
 main.init();
+
