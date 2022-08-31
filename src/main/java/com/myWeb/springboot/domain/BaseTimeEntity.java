@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass // 이 클래스를 상속한 JPA Entity 클래스가 이 클래스의 필드도 Column으로 인식하게 함.
+@MappedSuperclass // 이 클래스를 상속한 JPA Entity 클래스가 이 클래스의 필드도 Column으로 인식하게 함.w
 @EntityListeners(AuditingEntityListener.class) // @EntityListeners : entity에 이벤트가 발생하는지 체크
 // Auditing기능 추가 : entity가 생성(영속성 컨텍스트에 추가..?), 업데이트될 때 시간 정보 추가해줌.
 public class BaseTimeEntity {

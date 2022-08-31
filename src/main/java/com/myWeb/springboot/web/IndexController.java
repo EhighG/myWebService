@@ -1,5 +1,7 @@
 package com.myWeb.springboot.web;
 
+import com.myWeb.springboot.config.auth.LoginUser;
+import com.myWeb.springboot.config.auth.dto.SessionUser;
 import com.myWeb.springboot.service.posts.PostsService;
 import com.myWeb.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -8,16 +10,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller // 이부분이 없으면 index페이지는 잘 되지만 등록화면만 안됨. 왜?? (직접 들어가도 안됨)
 public class IndexController {
 
     private final PostsService postsService;
-
+    private final HttpSession httpSession;
     // index.html은 기본값인가?? 이 메서드 없어도 호출됨!
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc()); // findAllDesc() 결과를 index.mustache에 posts라는 이름으로 전달
+
+        if(user != null) { // if user==null --> {{^userName}} 부분 실행
+            model.addAttribute("userName", user.getName());
+        }
         return "index"; // index.mustache 호출(웹 mvc 강의때처럼, ViewResolver가  처리)
     }
 
